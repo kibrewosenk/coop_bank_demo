@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import '../../../core/constants/app_colors.dart';
-import '../../../core/constants/app_assets.dart';
+import '../../../core/constants/app_assets.dart';//unused import
 import '../../../core/utils/app_router.dart';
 
 class SplashPage extends StatefulWidget {

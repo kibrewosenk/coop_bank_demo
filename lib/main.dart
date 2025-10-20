@@ -9,6 +9,7 @@ import 'presentation/viewmodels/auth_viewmodel.dart';
 import 'presentation/viewmodels/camera_viewmodel.dart';
 import 'presentation/viewmodels/nid_viewmodel.dart';
 import 'presentation/viewmodels/otp_viewmodel.dart';
+import 'presentation/viewmodels/dashboard_viewmodel.dart'; // Add DashboardViewModel
 import 'theme/app_theme.dart'; // Import theme
 
 void main() async {
@@ -28,6 +29,7 @@ class CoopBankDemoApp extends StatelessWidget {
         ChangeNotifierProvider(create: (_) => OtpViewModel()),
         ChangeNotifierProvider(create: (_) => NidViewModel()),
         ChangeNotifierProvider(create: (_) => CameraViewModel()),
+        ChangeNotifierProvider(create: (_) => DashboardViewModel()), // Add DashboardViewModel
       ],
       child: MaterialApp(
         title: AppStrings.appTitle,

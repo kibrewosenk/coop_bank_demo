@@ -4,7 +4,6 @@ import '../../../core/constants/app_colors.dart';
 import '../../../core/constants/app_strings.dart';
 import '../../../core/utils/app_router.dart';
 import '../../../core/utils/validators.dart';
-import '../../../core/widgets/biometric_toggle.dart';
 import '../../../core/widgets/custom_button.dart';
 import '../../../core/widgets/custom_textfield.dart';
 import '../../../core/widgets/pin_input.dart';
@@ -51,6 +50,7 @@ class _NidDetailConfirmPageState extends State<NidDetailConfirmPage> {
 
       if (nidVM.nidData != null && nidVM.currentNid != null) {
         final user = UserModel(
+          fullname: nidVM.nidData!.fullName,
           phone: nidVM.nidData!.phoneNumber,
           nid: nidVM.currentNid!,
           pin: _pinController.text,
@@ -63,7 +63,12 @@ class _NidDetailConfirmPageState extends State<NidDetailConfirmPage> {
         await authVM.savePin(_pinController.text);
 
         if (mounted) {
-          Navigator.pushReplacementNamed(context, AppRouter.dashboard);
+          // FIXED: Pass true to indicate coming from NID registration
+          Navigator.pushReplacementNamed(
+            context,
+            AppRouter.dashboard,
+            arguments: true, // This tells dashboard we're from NID registration
+          );
         }
       } else {
         _showErrorDialog('Data Missing', 'NID data not found. Please try again.');
@@ -359,7 +364,7 @@ class _NidDetailConfirmPageState extends State<NidDetailConfirmPage> {
               ),
             ),
 
-            // Fixed Bottom Button - Always Visible (FIXED BORDER SYNTAX)
+            // Fixed Bottom Button - Always Visible
             Container(
               width: double.infinity,
               padding: const EdgeInsets.all(24),

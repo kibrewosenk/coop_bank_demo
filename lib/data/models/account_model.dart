@@ -10,6 +10,6 @@ class AccountModel {
     required this.accountType,
     required this.accountNumber,
     required this.balance,
-    this.currency = 'USD',
+    required  this.currency,
   });
 }

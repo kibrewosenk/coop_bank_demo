@@ -13,7 +13,7 @@ class AuthService {
   }
 
   Future<bool> validatePin(String phone, String pin) async {
-    final user = dummyUsers.firstWhere((u) => u.phone == phone, orElse: () => UserModel(phone: '', nid: '', pin: '', motherName: ''));
+    final user = dummyUsers.firstWhere((u) => u.phone == phone, orElse: () => UserModel(fullname:'',phone: '', nid: '', pin: '', motherName: ''));
     return user.pin == pin; // In real, hash
   }
 

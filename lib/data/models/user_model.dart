@@ -1,4 +1,5 @@
 class UserModel {
+  final String fullname;
   final String phone;
   final String nid;
   final String pin;
@@ -7,6 +8,7 @@ class UserModel {
   final bool useBiometric;
 
   UserModel({
+    required this.fullname,
     required this.phone,
     required this.nid,
     required this.pin,

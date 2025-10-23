@@ -35,7 +35,7 @@ class _PinEntryPageState extends State<PinEntryPage> {
     if (authVM.phone != null) {
       final user = dummyUsers.firstWhere(
             (u) => u.phone == authVM.phone,
-        orElse: () => UserModel(phone: '', nid: '', pin: '', motherName: ''),
+        orElse: () => UserModel(fullname:'',phone: '', nid: '', pin: '', motherName: ''),
       );
       setState(() {
         _enableBiometric = user.useBiometric;
@@ -70,7 +70,7 @@ class _PinEntryPageState extends State<PinEntryPage> {
         if (authVM.phone != null) {
           final user = dummyUsers.firstWhere(
                 (u) => u.phone == authVM.phone,
-            orElse: () => UserModel(phone: '', nid: '', pin: '', motherName: ''),
+            orElse: () => UserModel(fullname:'',phone: '', nid: '', pin: '', motherName: ''),
           );
 
           if (user.isActivated) {

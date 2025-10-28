@@ -1,12 +1,13 @@
+// Updated DashboardPage.dart
 import 'package:flutter/material.dart';
 import '../../../core/constants/app_colors.dart';
 import '../../../core/constants/app_strings.dart';
 import '../../../core/widgets/app_drawer.dart';
-import '../../viewmodels/dashboard_viewmodel.dart';
-import 'package:provider/provider.dart';
+// // import '../../viewmodels/dashboard_viewmodel.dart';
+// import 'package:provider/provider.dart';
 import 'tabs/home_tab.dart';
 import 'tabs/transfers_tab.dart';
-import 'tabs/services_tab.dart';
+import 'tabs/apps_tab.dart'; // Changed from services_tab.dart
 import 'tabs/profile_tab.dart';
 
 class DashboardPage extends StatefulWidget {
@@ -22,7 +23,7 @@ class _DashboardPageState extends State<DashboardPage> {
   final List<Widget> _pages = [
     const HomeTab(),
     const TransfersTab(),
-    const ServicesTab(),
+    const AppsTab(), // Changed from ServicesTab
     const ProfileTab(),
   ];
 
@@ -92,7 +93,7 @@ class _DashboardPageState extends State<DashboardPage> {
             BottomNavigationBarItem(
               icon: Icon(Icons.apps_outlined),
               activeIcon: Icon(Icons.apps),
-              label: 'Services',
+              label: 'Apps', // Changed from 'Services'
             ),
             BottomNavigationBarItem(
               icon: Icon(Icons.person_outlined),

@@ -1,7 +1,7 @@
 import '../models/nid_model.dart';
 
 final Map<String, NidModel> dummyNidData = {
-  '123456789012': NidModel(
+  '123456': NidModel(
     fullName: 'Kibrewosen kerie',
     gender: 'Male',
     dob: '1992-01-01',

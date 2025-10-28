@@ -1,9 +1,11 @@
+// Updated HomeTab.dart
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../../../core/constants/app_colors.dart';
+import '../../../../core/constants/app_list.dart'; // Import the app_list and ads_list
 import '../../../../data/models/account_model.dart';
 import '../../../viewmodels/dashboard_viewmodel.dart';
-import '../../../../data/dummy_data/users.dart';
+// import '../../../../data/dummy_data/users.dart';
 
 class HomeTab extends StatefulWidget {
   const HomeTab({super.key});
@@ -191,62 +193,67 @@ class _HomeTabState extends State<HomeTab> {
     );
   }
 
-  Widget _buildTransactionItem(
-      String title, String amount, String date, IconData icon, Color color) {
+  Widget _buildAppGridItem(Map<String, dynamic> app) {
+    return _buildQuickAction(
+      app['appicon'] as IconData,
+      app['appname'] as String,
+          () {}, // Add navigation or action if needed
+    );
+  }
+
+  Widget _buildSwipeableAdCard(Map<String, dynamic> ad) {
     return Container(
-      margin: const EdgeInsets.only(bottom: 8),
+      width: MediaQuery.of(context).size.width - 32, // Full width minus padding
+      margin: const EdgeInsets.symmetric(horizontal: 8),
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
         color: Colors.white,
-        borderRadius: BorderRadius.circular(12),
+        borderRadius: BorderRadius.circular(16),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.03),
-            blurRadius: 4,
-            offset: const Offset(0, 2),
+            color: Colors.black.withOpacity(0.05),
+            blurRadius: 8,
+            offset: const Offset(0, 4),
           ),
         ],
       ),
       child: Row(
         children: [
           Container(
-            width: 40,
-            height: 40,
+            width: 60,
+            height: 60,
             decoration: BoxDecoration(
-              color: color.withOpacity(0.1),
-              borderRadius: BorderRadius.circular(10),
+              color: AppColors.primary.withOpacity(0.1),
+              borderRadius: BorderRadius.circular(12),
             ),
-            child: Icon(icon, color: color, size: 20),
+            child: Icon(
+              ad['adicon'] as IconData,
+              color: AppColors.primary,
+              size: 32,
+            ),
           ),
-          const SizedBox(width: 12),
+          const SizedBox(width: 30),
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  title,
+                  ad['adname'] as String,
                   style: const TextStyle(
-                    fontSize: 14,
+                    fontSize: 18,
                     fontWeight: FontWeight.w600,
                     color: AppColors.text,
                   ),
                 ),
+                const SizedBox(height: 4),
                 Text(
-                  date,
+                  'Check out this offer!',
                   style: TextStyle(
-                    fontSize: 12,
-                    color: AppColors.text.withOpacity(0.5),
+                    fontSize: 14,
+                    color: AppColors.text.withOpacity(0.6),
                   ),
                 ),
               ],
-            ),
-          ),
-          Text(
-            amount,
-            style: TextStyle(
-              fontSize: 16,
-              fontWeight: FontWeight.w700,
-              color: color,
             ),
           ),
         ],
@@ -301,7 +308,7 @@ class _HomeTabState extends State<HomeTab> {
                                       color: Colors.white.withOpacity(0.9),
                                     ),
                                   ),
-                                  const SizedBox(height: 4),
+                                  const SizedBox(height: 1),
                                   const Text(
                                     'Kibre',
                                     style: TextStyle(
@@ -329,6 +336,7 @@ class _HomeTabState extends State<HomeTab> {
                                       color: Colors.white.withOpacity(0.8),
                                     ),
                                   ),
+
                                 ],
                               ),
                             ),
@@ -336,16 +344,20 @@ class _HomeTabState extends State<HomeTab> {
                             // Right side — Account switcher + Add button
                             Column(
                               mainAxisAlignment: MainAxisAlignment.start,
+                              crossAxisAlignment: CrossAxisAlignment.end,
                               children: [
+
+
                                 Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  mainAxisAlignment: MainAxisAlignment.start,
                                   children: [
-                                    const SizedBox(width: 90),
+                                    const SizedBox(width: 10),
                                     // Up Arrow - Only show if multiple accounts
                                     if (canSwitchAccounts)
                                       Column(
-                                        mainAxisAlignment: MainAxisAlignment.end,
+                                        mainAxisAlignment: MainAxisAlignment.start,
                                         children: [
+
                                           GestureDetector(
                                             onTap: () => _switchToPreviousAccount(dashboardVM),
                                             child: Container(
@@ -361,13 +373,16 @@ class _HomeTabState extends State<HomeTab> {
                                               ),
                                             ),
                                           ),
+
                                         ],
                                       )
                                     else
-                                      const SizedBox(width: 28),
-                                    const SizedBox(width: 80),
+                                      const SizedBox(width: 30),
+                                    const SizedBox(width: 30),
                                     Column(
+                                      crossAxisAlignment: CrossAxisAlignment.center,
                                       children: [
+
                                         GestureDetector(
                                           onTap: () {
                                             setState(() => _showAddOptionsPopup = true);
@@ -386,9 +401,10 @@ class _HomeTabState extends State<HomeTab> {
                                         ),
                                       ],
                                     ),
+
                                   ],
                                 ),
-                                const SizedBox(height: 8),
+                                const SizedBox(height: 6),
 
                                 // Account Info Box
                                 GestureDetector(
@@ -396,14 +412,17 @@ class _HomeTabState extends State<HomeTab> {
                                     setState(() => _showAccountPopup = true);
                                   } : null,
                                   child: Container(
-                                    width: 210,
+                                    width: 150,
                                     padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
                                     decoration: BoxDecoration(
                                       color: Colors.white.withOpacity(0.1),
                                       borderRadius: BorderRadius.circular(8),
                                     ),
+
                                     child: Column(
+
                                       children: [
+
                                         Text(
                                           hasAccounts
                                               ? dashboardVM.currentAccount?.accountType ?? 'Primary'
@@ -425,36 +444,50 @@ class _HomeTabState extends State<HomeTab> {
                                           ),
                                           textAlign: TextAlign.center,
                                         ),
+
                                       ],
                                     ),
                                   ),
                                 ),
+
                                 const SizedBox(height: 6),
 
                                 // Down Arrow - Only show if multiple accounts
-                                if (canSwitchAccounts)
-                                  GestureDetector(
-                                    onTap: () => _switchToNextAccount(dashboardVM),
-                                    child: Container(
-                                      padding: const EdgeInsets.all(4),
-                                      decoration: BoxDecoration(
-                                        color: Colors.white.withOpacity(0.2),
-                                        shape: BoxShape.circle,
-                                      ),
-                                      child: const Icon(
-                                        Icons.keyboard_arrow_down,
-                                        color: Colors.white,
-                                        size: 20,
-                                      ),
-                                    ),
-                                  )
-                                else
-                                  const SizedBox(height: 28),
+
+
                               ],
                             ),
                           ],
                         ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: [
 
+                            if (canSwitchAccounts)
+                              GestureDetector(
+                                onTap: () => _switchToNextAccount(dashboardVM),
+                                child: Container(
+
+                                  padding: const EdgeInsets.all(4),
+                                  decoration: BoxDecoration(
+                                    color: Colors.white.withOpacity(0.2),
+                                    shape: BoxShape.circle,
+                                  ),
+                                  child: const Icon(
+                                    Icons.keyboard_arrow_down,
+                                    color: Colors.white,
+                                    size: 20,
+                                  ),
+
+                                ),
+
+                              )
+
+                            else
+                              const SizedBox(height: 28),
+                            const SizedBox(width: 60),
+                          ],
+                        ),
                         const SizedBox(height: 5),
 
                         // Total balance section
@@ -475,6 +508,7 @@ class _HomeTabState extends State<HomeTab> {
                                   color: Colors.white.withOpacity(0.9),
                                 ),
                               ),
+
                               Row(
                                 children: [
                                   Text(
@@ -500,31 +534,34 @@ class _HomeTabState extends State<HomeTab> {
                                     ),
                                   ),
                                 ],
-                              ),
+                                                             ),
                             ],
+
                           ),
+
                         ),
+
                       ],
                     ),
                   ),
 
-                  const SizedBox(height: 20),
+                  const SizedBox(height: 5),
 
                   // Quick Actions
                   const Text(
                     'Quick Actions',
                     style: TextStyle(
-                      fontSize: 18,
+                      fontSize: 16,
                       fontWeight: FontWeight.w700,
                       color: AppColors.text,
                     ),
                   ),
-                  const SizedBox(height: 12),
+                  const SizedBox(height: 2),
                   GridView.count(
                     shrinkWrap: true,
                     physics: const NeverScrollableScrollPhysics(),
                     crossAxisCount: 4,
-                    childAspectRatio: 0.9,
+                    childAspectRatio: 1,
                     children: [
                       _buildQuickAction(Icons.send, 'Send', () {}),
                       _buildQuickAction(Icons.qr_code, 'Pay', () {}),
@@ -537,16 +574,29 @@ class _HomeTabState extends State<HomeTab> {
                     ],
                   ),
 
-                  const SizedBox(height: 24),
+                  const SizedBox(height: 2),
 
-                  // Recent Transactions
+                  // Ads section - horizontal slider, one at a time, full width
+                  SizedBox(
+                    height: 100, // Adjust height based on card size
+                    child: PageView.builder(
+                      itemCount: adsList.length,
+                      itemBuilder: (context, index) {
+                        return _buildSwipeableAdCard(adsList[index]);
+                      },
+                    ),
+                  ),
+
+                  const SizedBox(height: 5),
+
+                  // Recent Apps - grid view
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       const Text(
-                        'Recent Transactions',
+                        'Recent Apps',
                         style: TextStyle(
-                          fontSize: 18,
+                          fontSize: 16,
                           fontWeight: FontWeight.w700,
                           color: AppColors.text,
                         ),
@@ -561,33 +611,12 @@ class _HomeTabState extends State<HomeTab> {
                     ],
                   ),
                   const SizedBox(height: 12),
-                  _buildTransactionItem(
-                    'Groceries Store',
-                    '-\$50.00',
-                    'Oct 15',
-                    Icons.shopping_cart,
-                    AppColors.danger,
-                  ),
-                  _buildTransactionItem(
-                    'Salary Deposit',
-                    '+\$2,000.00',
-                    'Oct 1',
-                    Icons.account_balance,
-                    AppColors.success,
-                  ),
-                  _buildTransactionItem(
-                    'Netflix Subscription',
-                    '-\$15.99',
-                    'Sep 28',
-                    Icons.movie,
-                    AppColors.danger,
-                  ),
-                  _buildTransactionItem(
-                    'Transfer from Mom',
-                    '+\$500.00',
-                    'Sep 25',
-                    Icons.people,
-                    AppColors.success,
+                  GridView.count(
+                    shrinkWrap: true,
+                    physics: const NeverScrollableScrollPhysics(),
+                    crossAxisCount: 4,
+                    childAspectRatio: 0.9,
+                    children: appList.take(4).map((app) => _buildAppGridItem(app)).toList(),
                   ),
                 ],
               ),

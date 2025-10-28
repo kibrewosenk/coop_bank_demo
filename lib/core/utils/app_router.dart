@@ -1,3 +1,4 @@
+import 'package:coop_bank_demo/presentation/pages/onboarding/manual_info_entry.dart';
 import 'package:flutter/material.dart';
 import '../../presentation/pages/dashboard/dashboard_page.dart'; // This import is correct
 import '../../presentation/pages/forgot_pin/forgot_pin_page.dart';
@@ -24,6 +25,7 @@ class AppRouter {
   static const tempPinReview = '/temp-pin-review';
   static const nidEntry = '/nid-entry';
   static const otp = '/otp';
+  static const skip = '/manual-info-entry';
   static const nidDetailConfirm = '/nid-detail-confirm';
   static const selfieCapture = '/selfie-capture';
   static const underReview = '/under-review';
@@ -52,6 +54,8 @@ class AppRouter {
         return MaterialPageRoute(builder: (_) => const NidEntryPage());
       case otp:
         return MaterialPageRoute(builder: (_) => const OtpPage());
+      case skip:
+        return MaterialPageRoute(builder: (_) => const manualInfoEntry());
       case nidDetailConfirm:
         return MaterialPageRoute(builder: (_) => const NidDetailConfirmPage());
       case selfieCapture:

@@ -33,7 +33,7 @@ class AppDrawer extends StatelessWidget {
                 ),
                 const SizedBox(height: 16),
                 Text(
-                  'John Doe',
+                  'kibre',
                   style: TextStyle(
                     fontSize: 18,
                     fontWeight: FontWeight.w600,
@@ -41,7 +41,7 @@ class AppDrawer extends StatelessWidget {
                   ),
                 ),
                 Text(
-                  'john.doe@email.com',
+                  'kibrekerie@email.com',
                   style: TextStyle(
                     color: Colors.white.withOpacity(0.8),
                   ),

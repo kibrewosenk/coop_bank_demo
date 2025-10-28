@@ -59,7 +59,16 @@ class _NidEntryPageState extends State<NidEntryPage> {
       }
     }
   }
+  Future<void> _handleNidSkip() async {
 
+    setState(() => _isLoading = true);
+
+          Navigator.pushNamed(context, AppRouter.skip);
+
+        setState(() => _isLoading = false);
+
+
+  }
   void _showErrorDialog(String title, String message) {
     showDialog(
       context: context,
@@ -112,21 +121,21 @@ class _NidEntryPageState extends State<NidEntryPage> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 // Header Section
-                const SizedBox(height: 20),
+                const SizedBox(height: 5),
                 Text(
                   'National ID Verification',
                   style: TextStyle(
-                    fontSize: 28,
+                    fontSize: 18,
                     fontWeight: FontWeight.w700,
                     color: AppColors.text,
                     height: 1.3,
                   ),
                 ),
-                const SizedBox(height: 12),
+                const SizedBox(height: 5),
                 Text(
                   'Enter your National ID number to verify your identity and continue with account registration.',
                   style: TextStyle(
-                    fontSize: 16,
+                    fontSize: 12,
                     fontWeight: FontWeight.w400,
                     color: AppColors.text.withOpacity(0.7),
                     height: 1.5,
@@ -134,11 +143,11 @@ class _NidEntryPageState extends State<NidEntryPage> {
                 ),
 
                 // Illustration/Icon
-                const SizedBox(height: 40),
+                const SizedBox(height: 15),
                 Center(
                   child: Container(
-                    width: 120,
-                    height: 120,
+                    width: 90,
+                    height: 90,
                     decoration: BoxDecoration(
                       color: AppColors.primary.withOpacity(0.1),
                       shape: BoxShape.circle,
@@ -150,18 +159,18 @@ class _NidEntryPageState extends State<NidEntryPage> {
                     ),
                   ),
                 ),
-                const SizedBox(height: 40),
+                const SizedBox(height: 15),
 
                 // NID Input Section
                 Text(
                   'National ID Number',
                   style: TextStyle(
-                    fontSize: 16,
+                    fontSize: 14,
                     fontWeight: FontWeight.w600,
                     color: AppColors.text,
                   ),
                 ),
-                const SizedBox(height: 8),
+                const SizedBox(height: 5),
                 Stack(
                   children: [
                     CustomTextField(
@@ -190,14 +199,14 @@ class _NidEntryPageState extends State<NidEntryPage> {
                   children: [
                     Icon(
                       Icons.info_outline,
-                      size: 16,
+                      size: 14,
                       color: AppColors.text.withOpacity(0.5),
                     ),
                     const SizedBox(width: 8),
                     Text(
                       'Enter your 10-digit National ID number',
                       style: TextStyle(
-                        fontSize: 12,
+                        fontSize: 11,
                         color: AppColors.text.withOpacity(0.5),
                       ),
                     ),
@@ -205,10 +214,10 @@ class _NidEntryPageState extends State<NidEntryPage> {
                 ),
 
                 // Submit Button
-                const SizedBox(height: 32),
+                const SizedBox(height: 15),
                 SizedBox(
                   width: double.infinity,
-                  height: 56,
+                  height: 40,
                   child: _isLoading
                       ? ElevatedButton(
                     onPressed: null,
@@ -230,6 +239,33 @@ class _NidEntryPageState extends State<NidEntryPage> {
                       : CustomButton(
                     label: AppStrings.next,
                     onPressed: _handleNidSubmission,
+                  ),
+                ),
+                const SizedBox(height: 15),
+                SizedBox(
+                  width: double.infinity,
+                  height: 40,
+                  child: _isLoading
+                      ? ElevatedButton(
+                    onPressed: null,
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: AppColors.primary.withOpacity(0.5),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(15),
+                      ),
+                    ),
+                    child: const SizedBox(
+                      width: 20,
+                      height: 20,
+                      child: CircularProgressIndicator(
+                        strokeWidth: 2,
+                        valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
+                      ),
+                    ),
+                  )
+                      : CustomButton(
+                    label: 'Skip',
+                    onPressed: _handleNidSkip,
                   ),
                 ),
 

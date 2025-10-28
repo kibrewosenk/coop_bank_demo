@@ -31,7 +31,7 @@ class ProfileTab extends StatelessWidget {
                   ),
                   const SizedBox(height: 16),
                   Text(
-                    'John Doe',
+                    'kibrewosen Kerie',
                     style: TextStyle(
                       fontSize: 20,
                       fontWeight: FontWeight.w700,
@@ -40,7 +40,7 @@ class ProfileTab extends StatelessWidget {
                   ),
                   const SizedBox(height: 8),
                   Text(
-                    'john.doe@email.com',
+                    'kibrekerie@email.com',
                     style: TextStyle(
                       color: AppColors.text.withOpacity(0.6),
                     ),

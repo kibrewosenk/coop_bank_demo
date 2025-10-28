@@ -1,7 +1,7 @@
 // Updated lib/main.dart (apply theme)
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'core/constants/app_colors.dart';
+// import 'core/constants/app_colors.dart';
 import 'core/constants/app_strings.dart';
 import 'core/utils/app_router.dart';
 import 'core/utils/shared_prefs_helper.dart';
